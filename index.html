@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Vocacional IPPJ - Bienestar Institucional ISTPET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <!-- Placeholder for ISTPET Logo -->
+             <img src="ISTPET-ORIGINAL.jpg">
+            <div class="logo-placeholder">ISTPET</div>
+        </div>
+        <div class="header-titles">
+            <h1>BIENESTAR INSTITUCIONAL</h1>
+            <h2>Inventario de Preferencias Profesionales</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Pantalla 1: Registro -->
+        <section id="screen-register" class="card active">
+            <h3 class="title-oswald">Registro del Estudiante</h3>
+            <p>Ingrese sus datos para comenzar la evaluación vocacional.</p>
+            <form id="form-register">
+                <div class="input-group">
+                    <label for="student-name">Nombres y Apellidos</label>
+                    <input type="text" id="student-name" required autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <label for="student-age">Edad</label>
+                    <input type="number" id="student-age" required min="10" max="99">
+                </div>
+                <button type="submit" class="btn btn-primary">Comenzar Test</button>
+            </form>
+            <button id="btn-view-admin" class="btn btn-secondary mt-3">Ver Registros (Solo DECE)</button>
+        </section>
+
+        <!-- Pantalla 2: Test -->
+        <section id="screen-test" class="card hidden">
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+            <p id="question-counter" class="counter">Pregunta 1 de 60</p>
+            <h3 id="question-text" class="question-text title-oswald">Cargando pregunta...</h3>
+            
+            <div class="options-container">
+                <p class="instruction">Selecciona tu nivel de preferencia (1 = Nada, 5 = Mucho)</p>
+                <div class="radio-group">
+                    <input type="radio" name="answer" id="opt1" value="1"><label for="opt1">1</label>
+                    <input type="radio" name="answer" id="opt2" value="2"><label for="opt2">2</label>
+                    <input type="radio" name="answer" id="opt3" value="3"><label for="opt3">3</label>
+                    <input type="radio" name="answer" id="opt4" value="4"><label for="opt4">4</label>
+                    <input type="radio" name="answer" id="opt5" value="5"><label for="opt5">5</label>
+                </div>
+            </div>
+            
+            <button id="btn-next" class="btn btn-primary mt-3">Siguiente</button>
+        </section>
+
+        <!-- Pantalla 3: Resultados (Dashboard Admin) -->
+        <section id="screen-admin" class="card hidden admin-card">
+            <div class="admin-header">
+                <h3 class="title-oswald">Base de Datos - Resultados Vocacionales</h3>
+                <button id="btn-back-home" class="btn btn-secondary">Volver al Inicio</button>
+            </div>
+            <div class="table-responsive">
+                <table id="results-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Nombres</th>
+                            <th>Edad</th>
+                            <th>R</th><th>I</th><th>A</th><th>S</th><th>E</th><th>C</th>
+                            <th>Máx</th>
+                            <th>Perfil Dominante</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-body">
+                        <!-- Data injected by JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="admin-actions">
+                <button id="btn-export" class="btn btn-primary">Exportar a CSV</button>
+                <button id="btn-clear-all" class="btn btn-danger">Borrar Todos los Datos</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
