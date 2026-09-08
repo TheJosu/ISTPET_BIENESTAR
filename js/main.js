@@ -352,7 +352,7 @@ function generatePDF(id) {
     doc.save(`Resultados_Vocacionales_${record.name.replace(/\s+/g, '_')}.pdf`);
 }
 
-// --- ADMIN PANEL CON SEGURIDAD DE 5 CLICS ---
+// --- SEGURIDAD DE 5 CLICS ---
 let adminClickCount = 0;
 let adminClickTimer;
 const btnViewAdmin = document.getElementById('btn-view-admin');
