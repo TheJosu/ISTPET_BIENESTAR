@@ -117,7 +117,7 @@ function finishTest() {
     switchScreen(screenTest, screenRegister);
 }
 
-// URL generada al implementar la Aplicación Web en Google Apps Script
+/// URL generada al implementar la Aplicación Web en Google Apps Script
 const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwGalzPmXer3pYC7yqpBY23WivzszgML-l3e65nK_h6kEfGn2ahJXWIXkyR_l9NcrI-/exec";
 
 // STORAGE (Local y en la Nube)
@@ -128,7 +128,7 @@ function saveRecord(record) {
     localStorage.setItem('istpet_records', JSON.stringify(records));
 
     // 2. Envío automático a la hoja de cálculo
-    if (WEBHOOK_URL && WEBHOOK_URL !== "https://script.google.com/macros/s/AKfycbwGalzPmXer3pYC7yqpBY23WivzszgML-l3e65nK_h6kEfGn2ahJXWIXkyR_l9NcrI-/exec") {
+    if (WEBHOOK_URL && WEBHOOK_URL.trim() !== "") {
         const payload = {
             date: record.date,
             name: record.name,
@@ -145,9 +145,9 @@ function saveRecord(record) {
 
         fetch(WEBHOOK_URL, {
             method: 'POST',
-            mode: 'no-cors', // Evita problemas de bloqueo CORS con Google Script
+            mode: 'no-cors',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'text/plain;charset=utf-8'
             },
             body: JSON.stringify(payload)
         })
@@ -155,9 +155,13 @@ function saveRecord(record) {
         .catch(error => console.error("Error al enviar datos:", error));
     }
 }
-function getRecords() { return JSON.parse(localStorage.getItem('istpet_records')) || []; }
+
+function getRecords() { 
+    return JSON.parse(localStorage.getItem('istpet_records')) || []; 
+}
+
 function deleteRecord(id) {
-    if(confirm("¿Eliminar este registro?")) {
+    if (confirm("¿Eliminar este registro?")) {
         let records = getRecords().filter(r => r.id !== id);
         localStorage.setItem('istpet_records', JSON.stringify(records));
         renderTable();
