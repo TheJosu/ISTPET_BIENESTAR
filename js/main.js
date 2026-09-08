@@ -256,11 +256,11 @@ function generatePDF(id) {
 
     // Descargar Archivo
     doc.save(`Resultados_Vocacionales_${record.name.replace(/\s+/g, '_')}.pdf`);
+    
     // --- ACCESO SECRETO ADMIN ---
 let secretClickCount = 0;
 let clickTimer;
 
-// Seleccionamos el logo (asegúrate de que en el HTML tenga la clase 'logo-img')
 const logoElement = document.querySelector('.logo-img');
 
 if (logoElement) {
@@ -274,7 +274,7 @@ if (logoElement) {
         if (secretClickCount === 5) {
             const adminBtn = document.getElementById('btn-view-admin');
             adminBtn.style.display = 'block'; // Muestra el botón
-            alert("🔒 Acceso DECE desbloqueado.");
+            alert("Acceso UBI desbloqueado.");
             secretClickCount = 0; // Reinicia el contador
         }
     });
