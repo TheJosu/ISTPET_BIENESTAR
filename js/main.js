@@ -184,7 +184,7 @@ function generatePDF(id) {
 
     const doc = new jsPDF();
     
-    // Franja Superior Azul (ISTPET)
+    // Franja Superior Azul 
     doc.setFillColor(34, 44, 87);
     doc.rect(0, 0, 210, 35, 'F');
     
@@ -192,14 +192,13 @@ function generatePDF(id) {
     doc.setTextColor(255, 255, 255);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
-    doc.text("IST TECNOLÓGICO TRAVERSARI", 105, 16, { align: "center" });
+    doc.text("ISTPET TECNOLÓGICO TRAVERSARI", 105, 16, { align: "center" });
     
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
     doc.text("Unidad de Bienestar Institucional (UBI)", 105, 24, { align: "center" });
     
     // --- INSERCIÓN DEL LOGO ---
-    // Captura la imagen del logo que ya existe en tu HTML
     const logoImg = document.querySelector('.logo-img');
     if (logoImg) {
         // Posición: Izquierda (X:15), Debajo de la franja (Y:40), Ancho 45, Alto 18
@@ -230,7 +229,7 @@ function generatePDF(id) {
 
     // Resultados Detallados
     doc.setFont("helvetica", "bold");
-    doc.text("Resultados por Dimensión (Modelo Holland):", 20, 130);
+    doc.text("Resultados:", 20, 130);
     
     const yStart = 140;
     doc.setFont("helvetica", "normal");
