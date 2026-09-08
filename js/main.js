@@ -118,7 +118,7 @@ function finishTest() {
 }
 
 // URL generada al implementar la Aplicación Web en Google Apps Script
-const WEBHOOK_URL = "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT";
+const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwGalzPmXer3pYC7yqpBY23WivzszgML-l3e65nK_h6kEfGn2ahJXWIXkyR_l9NcrI-/exec";
 
 // STORAGE (Local y en la Nube)
 function saveRecord(record) {
