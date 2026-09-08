@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Vocacional IPPJ - Bienestar Institucional ISTPET</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Librería para generar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header class="main-header">
         <div class="logo-container">
-            <!-- Placeholder for ISTPET Logo -->
-             <img src="ISTPET-ORIGINAL.jpg">
-            <div class="logo-placeholder">ISTPET</div>
+            <!-- Asegúrate de poner el logo en la misma carpeta o ajustar la ruta -->
+            <img src="ISTPET-ORIGINAL.png" alt="Logo ISTPET" class="logo-img">
         </div>
         <div class="header-titles">
             <h1>BIENESTAR INSTITUCIONAL</h1>
-            <h2>Inventario de Preferencias Profesionales</h2>
+            <h2>Inventario de Preferencias Profesionales (IPPJ)</h2>
         </div>
     </header>
 
@@ -75,18 +76,16 @@
                             <th>Nombres</th>
                             <th>Edad</th>
                             <th>R</th><th>I</th><th>A</th><th>S</th><th>E</th><th>C</th>
-                            <th>Máx</th>
                             <th>Perfil Dominante</th>
-                            <th>Acción</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="results-body">
-                        <!-- Data injected by JS -->
+                        <!-- Inyectado por JS -->
                     </tbody>
                 </table>
             </div>
             <div class="admin-actions">
-                <button id="btn-export" class="btn btn-primary">Exportar a CSV</button>
                 <button id="btn-clear-all" class="btn btn-danger">Borrar Todos los Datos</button>
             </div>
         </section>
