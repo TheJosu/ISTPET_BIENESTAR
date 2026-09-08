@@ -192,11 +192,11 @@ function generatePDF(id) {
     doc.setTextColor(255, 255, 255);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
-    doc.text("IST TECNOLÓGICO TRAVERSARI", 105, 16, { align: "center" });
+    doc.text("ISTPET TECNOLÓGICO TRAVERSARI", 105, 16, { align: "center" });
     
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
-    doc.text("Departamento de Bienestar Institucional (DECE)", 105, 24, { align: "center" });
+    doc.text("Unidad de Bienestar Institucional (UBI)", 105, 24, { align: "center" });
     
     // Título del Documento
     doc.setTextColor(34, 44, 87);
