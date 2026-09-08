@@ -257,36 +257,27 @@ function generatePDF(id) {
     // Descargar Archivo
     doc.save(`Resultados_Vocacionales_${record.name.replace(/\s+/g, '_')}.pdf`);
     
-// --- ACCESO SECRETO ADMIN ---
-let secretClickCount = 0;
-let clickTimer;
+// --- ADMIN PANEL CON SEGURIDAD DE 5 CLICS ---
+let adminClickCount = 0;
+let adminClickTimer;
+const btnViewAdmin = document.getElementById('btn-view-admin');
 
-// Apuntamos directamente a la imagen del logo
-const logoImg = document.querySelector('.logo-img');
-
-if (logoImg) {
-    logoImg.style.cursor = 'pointer'; 
+btnViewAdmin.addEventListener('click', (e) => {
+    e.preventDefault(); // Evita que la página recargue
+    adminClickCount++;
     
-    logoImg.addEventListener('click', (e) => {
-        e.preventDefault();
-        secretClickCount++;
-        
-        // Verifica en la consola (F12) si el clic se registra
-        console.log("Clics registrados:", secretClickCount);
-        
-        clearTimeout(clickTimer);
-        clickTimer = setTimeout(() => { 
-            secretClickCount = 0; 
-        }, 2500);
+    // Si el usuario tarda más de 2.5 segundos entre clics, el contador se reinicia
+    clearTimeout(adminClickTimer);
+    adminClickTimer = setTimeout(() => { 
+        adminClickCount = 0; 
+    }, 2500);
 
-        if (secretClickCount >= 5) {
-            const adminBtn = document.getElementById('btn-view-admin');
-            if (adminBtn) {
-                adminBtn.style.display = 'block'; 
-                alert("🔒 Acceso UBI desbloqueado.");
-            }
-            secretClickCount = 0;
-        }
-    });
+    // Si alcanza los 5 clics rápidos, se abre el panel
+    if (adminClickCount >= 5) {
+        renderTable(); 
+        switchScreen(screenRegister, screenAdmin); 
+        adminClickCount = 0; // Reinicia para la próxima vez
+    }
+});
 }
-}
+
