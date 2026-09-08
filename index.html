@@ -48,15 +48,39 @@
             <h3 id="question-text" class="question-text title-oswald">Cargando pregunta...</h3>
             
             <div class="options-container">
-                <p class="instruction">Selecciona tu nivel de preferencia (1 = Totalmente en desacuerdo, 2 = En desacuerdo, 3 = Es dificil decidir, 4 = De acuerdo,5 = Totalmente deacuerdo)</p>
-                <div class="radio-group">
-                    <input type="radio" name="answer" id="opt1" value="1"><label for="opt1">1</label>
-                    <input type="radio" name="answer" id="opt2" value="2"><label for="opt2">2</label>
-                    <input type="radio" name="answer" id="opt3" value="3"><label for="opt3">3</label>
-                    <input type="radio" name="answer" id="opt4" value="4"><label for="opt4">4</label>
-                    <input type="radio" name="answer" id="opt5" value="5"><label for="opt5">5</label>
-                </div>
-            </div>
+    <p class="instruction">Selecciona tu nivel de preferencia:</p>
+    <div class="radio-group">
+        <input type="radio" name="answer" id="opt1" value="1">
+        <label for="opt1">
+            <span class="opt-num">1</span>
+            <span class="opt-desc">Totalmente en desacuerdo</span>
+        </label>
+        
+        <input type="radio" name="answer" id="opt2" value="2">
+        <label for="opt2">
+            <span class="opt-num">2</span>
+            <span class="opt-desc">En desacuerdo</span>
+        </label>
+        
+        <input type="radio" name="answer" id="opt3" value="3">
+        <label for="opt3">
+            <span class="opt-num">3</span>
+            <span class="opt-desc">Difícil de decidir</span>
+        </label>
+        
+        <input type="radio" name="answer" id="opt4" value="4">
+        <label for="opt4">
+            <span class="opt-num">4</span>
+            <span class="opt-desc">De acuerdo</span>
+        </label>
+        
+        <input type="radio" name="answer" id="opt5" value="5">
+        <label for="opt5">
+            <span class="opt-num">5</span>
+            <span class="opt-desc">Totalmente de acuerdo</span>
+        </label>
+    </div>
+</div>
             
             <button id="btn-next" class="btn btn-primary mt-3">Siguiente</button>
         </section>
