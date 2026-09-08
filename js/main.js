@@ -261,20 +261,19 @@ function generatePDF(id) {
 let secretClickCount = 0;
 let clickTimer;
 
-// Aseguramos capturar toda el área del logo
-const triggerElement = document.querySelector('.logo-container');
+// Apuntamos directamente a la imagen del logo
+const logoImg = document.querySelector('.logo-img');
 
-if (triggerElement) {
-    // Cambiar cursor para que el admin sepa que es cliqueable
-    triggerElement.style.cursor = 'pointer'; 
+if (logoImg) {
+    logoImg.style.cursor = 'pointer'; 
     
-    triggerElement.addEventListener('click', (e) => {
-        // Prevenir que el clic se propague y cuente doble
-        e.stopPropagation(); 
-        
+    logoImg.addEventListener('click', (e) => {
+        e.preventDefault();
         secretClickCount++;
         
-        // Reiniciar el contador si pasa mucho tiempo entre clics
+        // Verifica en la consola (F12) si el clic se registra
+        console.log("Clics registrados:", secretClickCount);
+        
         clearTimeout(clickTimer);
         clickTimer = setTimeout(() => { 
             secretClickCount = 0; 
@@ -283,9 +282,8 @@ if (triggerElement) {
         if (secretClickCount >= 5) {
             const adminBtn = document.getElementById('btn-view-admin');
             if (adminBtn) {
-                // Removemos el estilo en línea que lo oculta en lugar de forzar 'block'
-                adminBtn.style.display = ''; 
-                alert("Acceso UBI desbloqueado.");
+                adminBtn.style.display = 'block'; 
+                alert("🔒 Acceso UBI desbloqueado.");
             }
             secretClickCount = 0;
         }
