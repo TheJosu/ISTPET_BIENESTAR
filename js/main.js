@@ -185,47 +185,54 @@ function generatePDF(id) {
     const doc = new jsPDF();
     
     // Franja Superior Azul (ISTPET)
-    doc.setFillColor(34, 44, 87); // rgb(34, 44, 87)
+    doc.setFillColor(34, 44, 87);
     doc.rect(0, 0, 210, 35, 'F');
     
     // Títulos en Blanco
     doc.setTextColor(255, 255, 255);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
-    doc.text("ISTPET TECNOLÓGICO TRAVERSARI", 105, 16, { align: "center" });
+    doc.text("IST TECNOLÓGICO TRAVERSARI", 105, 16, { align: "center" });
     
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
     doc.text("Unidad de Bienestar Institucional (UBI)", 105, 24, { align: "center" });
     
-    // Título del Documento
+    // --- INSERCIÓN DEL LOGO ---
+    // Captura la imagen del logo que ya existe en tu HTML
+    const logoImg = document.querySelector('.logo-img');
+    if (logoImg) {
+        // Posición: Izquierda (X:15), Debajo de la franja (Y:40), Ancho 45, Alto 18
+        doc.addImage(logoImg, 'PNG', 15, 38, 45, 18);
+    }
+    
+    // Título del Documento (Desplazado hacia abajo a Y=65)
     doc.setTextColor(34, 44, 87);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(16);
-    doc.text("Reporte de Evaluación Vocacional - IPPJ", 105, 50, { align: "center" });
+    doc.text("Reporte de Evaluación Vocacional - IPPJ", 105, 65, { align: "center" });
     
     // Línea separadora Dorada
-    doc.setDrawColor(196, 168, 87); // Dorado
+    doc.setDrawColor(196, 168, 87);
     doc.setLineWidth(1);
-    doc.line(20, 55, 190, 55);
+    doc.line(20, 70, 190, 70);
 
     // Datos del Estudiante
     doc.setFontSize(12);
     doc.setTextColor(50, 50, 50);
     doc.setFont("helvetica", "bold");
-    doc.text("Datos del Estudiante:", 20, 70);
+    doc.text("Datos del Estudiante:", 20, 85);
     
     doc.setFont("helvetica", "normal");
-    doc.text(`Nombre Completo: ${record.name}`, 25, 80);
-    doc.text(`Edad: ${record.age} años`, 25, 88);
-    doc.text(`Fecha de Aplicación: ${record.date}`, 25, 96);
+    doc.text(`Nombre Completo: ${record.name}`, 25, 95);
+    doc.text(`Edad: ${record.age} años`, 25, 103);
+    doc.text(`Fecha de Aplicación: ${record.date}`, 25, 111);
 
     // Resultados Detallados
     doc.setFont("helvetica", "bold");
-    doc.text("Resultados por Dimensión (Modelo Holland):", 20, 115);
+    doc.text("Resultados por Dimensión (Modelo Holland):", 20, 130);
     
-    // Crear una tabla visual simple
-    const yStart = 125;
+    const yStart = 140;
     doc.setFont("helvetica", "normal");
     doc.text(`Realista (R):`, 35, yStart); doc.text(`${record.scores.R} pts`, 75, yStart);
     doc.text(`Investigador (I):`, 35, yStart + 10); doc.text(`${record.scores.I} pts`, 75, yStart + 10);
@@ -237,16 +244,16 @@ function generatePDF(id) {
 
     // Caja de Perfil Dominante
     doc.setFillColor(245, 247, 250);
-    doc.setDrawColor(196, 168, 87); // Borde Dorado
-    doc.rect(20, 160, 170, 30, 'FD'); // Fill y Draw
+    doc.setDrawColor(196, 168, 87);
+    doc.rect(20, 175, 170, 30, 'FD');
     
     doc.setTextColor(34, 44, 87);
     doc.setFont("helvetica", "bold");
-    doc.text("PERFIL VOCACIONAL DOMINANTE", 105, 172, { align: "center" });
+    doc.text("PERFIL VOCACIONAL DOMINANTE", 105, 187, { align: "center" });
     
-    doc.setTextColor(196, 168, 87); // Dorado oscuro para el resultado
+    doc.setTextColor(196, 168, 87);
     doc.setFontSize(14);
-    doc.text(`${record.profile} (Puntaje Máx: ${record.maxScore})`, 105, 182, { align: "center" });
+    doc.text(`${record.profile} (Puntaje Máx: ${record.maxScore})`, 105, 197, { align: "center" });
 
     // Pie de página
     doc.setTextColor(150, 150, 150);
@@ -254,7 +261,6 @@ function generatePDF(id) {
     doc.setFont("helvetica", "italic");
     doc.text("Documento generado automáticamente por el sistema. Válido para registros internos del ISTPET.", 105, 280, { align: "center" });
 
-    // Descargar Archivo
     doc.save(`Resultados_Vocacionales_${record.name.replace(/\s+/g, '_')}.pdf`);
 }
 
