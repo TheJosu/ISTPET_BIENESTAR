@@ -256,7 +256,8 @@ function generatePDF(id) {
 
     // Descargar Archivo
     doc.save(`Resultados_Vocacionales_${record.name.replace(/\s+/g, '_')}.pdf`);
-    
+}
+
 // --- ADMIN PANEL CON SEGURIDAD DE 5 CLICS ---
 let adminClickCount = 0;
 let adminClickTimer;
@@ -279,5 +280,3 @@ btnViewAdmin.addEventListener('click', (e) => {
         adminClickCount = 0; // Reinicia para la próxima vez
     }
 });
-}
-
