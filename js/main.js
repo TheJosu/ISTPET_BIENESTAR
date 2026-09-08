@@ -117,11 +117,43 @@ function finishTest() {
     switchScreen(screenTest, screenRegister);
 }
 
-// STORAGE
+// URL generada al implementar la Aplicación Web en Google Apps Script
+const WEBHOOK_URL = "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT";
+
+// STORAGE (Local y en la Nube)
 function saveRecord(record) {
+    // 1. Guardado local en el navegador
     let records = JSON.parse(localStorage.getItem('istpet_records')) || [];
     records.push(record);
     localStorage.setItem('istpet_records', JSON.stringify(records));
+
+    // 2. Envío automático a la hoja de cálculo
+    if (WEBHOOK_URL && WEBHOOK_URL !== "https://script.google.com/macros/s/AKfycbwGalzPmXer3pYC7yqpBY23WivzszgML-l3e65nK_h6kEfGn2ahJXWIXkyR_l9NcrI-/exec") {
+        const payload = {
+            date: record.date,
+            name: record.name,
+            age: record.age.toString(),
+            R: record.scores.R,
+            I: record.scores.I,
+            A: record.scores.A,
+            S: record.scores.S,
+            E: record.scores.E,
+            C: record.scores.C,
+            maxScore: record.maxScore,
+            profile: record.profile
+        };
+
+        fetch(WEBHOOK_URL, {
+            method: 'POST',
+            mode: 'no-cors', // Evita problemas de bloqueo CORS con Google Script
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(() => console.log("Datos enviados a la nube exitosamente"))
+        .catch(error => console.error("Error al enviar datos:", error));
+    }
 }
 function getRecords() { return JSON.parse(localStorage.getItem('istpet_records')) || []; }
 function deleteRecord(id) {
