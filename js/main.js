@@ -257,28 +257,34 @@ function generatePDF(id) {
     // Descargar Archivo
     doc.save(`Resultados_Vocacionales_${record.name.replace(/\s+/g, '_')}.pdf`);
     
-  // --- ACCESO SECRETO ADMIN ---
+// --- ACCESO SECRETO ADMIN ---
 let secretClickCount = 0;
 let clickTimer;
 
-// Selecciona el contenedor o la imagen directamente
-const triggerElement = document.querySelector('.logo-container') || document.querySelector('.logo-img');
+// Aseguramos capturar toda el área del logo
+const triggerElement = document.querySelector('.logo-container');
 
 if (triggerElement) {
-    triggerElement.style.cursor = 'pointer'; // Cambia el cursor a manito para saber dónde hacer clic
+    // Cambiar cursor para que el admin sepa que es cliqueable
+    triggerElement.style.cursor = 'pointer'; 
     
-    triggerElement.addEventListener('click', () => {
+    triggerElement.addEventListener('click', (e) => {
+        // Prevenir que el clic se propague y cuente doble
+        e.stopPropagation(); 
+        
         secretClickCount++;
         
+        // Reiniciar el contador si pasa mucho tiempo entre clics
         clearTimeout(clickTimer);
         clickTimer = setTimeout(() => { 
             secretClickCount = 0; 
-        }, 2500); // 2.5 segundos de tolerancia para los 5 clics
+        }, 2500);
 
         if (secretClickCount >= 5) {
             const adminBtn = document.getElementById('btn-view-admin');
             if (adminBtn) {
-                adminBtn.style.setProperty('display', 'block', 'important');
+                // Removemos el estilo en línea que lo oculta en lugar de forzar 'block'
+                adminBtn.style.display = ''; 
                 alert("Acceso UBI desbloqueado.");
             }
             secretClickCount = 0;
