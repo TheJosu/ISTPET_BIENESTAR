@@ -52,12 +52,12 @@ const fullDimensions = {
     'S': 'Social', 'E': 'Emprendedor', 'C': 'Convencional'
 };
 const profileDescriptions = {
-    'R': "La personalidad realista hace referencia a aquel patrón de conducta y pensamiento que tiende a ver el mundo como un todo objetivo y concreto. Se toman el mundo como les viene. Suelen ser realistas, dinámicos, materiales y aunque no son asociales el contacto con los demás no es para ellos lo más prioritario. También suelen ser pacientes y constantes.\n\nEste tipo de personalidades tienden a sentirse más a gusto desempeñando trabajos directos, con fuertes componentes prácticos y que exijan cierta motricidad y uso sistematizado de elementos. Suelen destacar en el uso de instrumentos mecánicos y con necesidad de precisión manual. Campos como la agricultura y la ganadería, la arquitectura o la ingeniería serían propicios para este tipo de personalidad.",
-    'I': "Este tipo de personalidad tiende más a la observación y al análisis del mundo, a menudo de una manera abstracta e intentando realizar asociaciones y encontrar relaciones entre los fenómenos que en él ocurren. Se trata de personalidades curiosas, analíticas, con tendencia a la introspección y al uso de la razón por encima de la emoción. No son especialmente sociables y suelen tener un enfoque del mundo más bien teórico, no interesándoles tanto la práctica.\n\nEsta personalidad se corresponde con tareas principalmente basadas en la investigación. Física, química, economía o biología son algunos de los ámbitos en que suelen observarse más este tipo de personalidades.",
-    'A': "La creatividad y el uso de materiales en búsqueda de la expresión son algunos de los principales elementos que caracterizan la personalidad artística. No es raro que se trate de personas impulsivas, idealistas y altamente emotivas e intuitivas. La estética y poder proyectar hacia el mundo sus sensaciones es importante para ellos, y suelen ser personas independientes. Si bien también intentan ver el mundo desde la abstracción, suelen focalizarse más en la emoción y tiende a disgustarles lo meramente intelectual, poseyendo la necesidad de elaborar y crear.\n\nPintores, escultores o músicos son algunos de los profesionales que tienden a este tipo de personalidad. También bailarines y actores, escritores y periodistas.",
-    'S': "El aspecto más destacable de las personas con este tipo de personalidad es la necesidad o deseo de ayudar a otros a través del trato con ellos, y su elevada necesidad de interacción humana. Suele tratarse de personas muy empáticas e idealistas, altamente comunicativas y tener cierta facilidad o gusto para las relaciones y la cooperación.\n\nEl tipo de tareas en las que suele encontrarse este tipo de personalidad son todas aquellas que supongan un trato directo con otras personas y en que dicha interacción exista como objetivo la idea de dar apoyo al otro. Psicólogos, médicos, enfermeros, profesores o trabajadores sociales suelen tener características de este tipo de personalidad. Tareas más mecánicas no suelen ser de su agrado.",
-    'E': "La capacidad de persuasión y la habilidad comunicativa son aspectos típicos de la personalidad emprendedora. Cierto nivel de dominancia y búsqueda de logro y poder son usuales en este tipo de personas, así como valor y capacidad de riesgo. Generalmente son personas con habilidades sociales y altamente extravertidos, con capacidad de liderazgo y un elevado nivel de energía.\n\nProfesiones en que prevalecen este tipo de personas son el mundo de la banca y de los negocios. Comerciales y empresarios suelen también tener rasgos de este tipo de personalidad.",
-    'C': "Estamos ante un tipo de personalidad que se caracteriza por el gusto por el orden sin necesidad de introducir grandes cambios en él. Tampoco precisan de un gran contacto social a nivel laboral. Suelen ser personas altamente organizadas, ordenadas, disciplinadas y formales. No es rara cierta tendencia al conformismo, dado que se identifican con la organización ya establecida. Suelen ser ágiles y lógicos.\n\nDentro de este tipo de personalidades encontramos a personas con vocación por aspectos como la contabilidad, el trabajo en oficina, el secretariado, bibliotecarias/os… en general con tendencia a buscar el orden."
+    'R': "Eres una persona práctica que tiende a ver el mundo de forma objetiva y concreta. Te caracterizas por ser realista, dinámico/a, paciente y constante, prefiriendo tomar las situaciones tal como vienen. Te sientes mucho más a gusto desempeñando trabajos directos, con fuertes componentes prácticos y que exijan destreza manual o el uso sistematizado de elementos y herramientas. Tienes un gran potencial para destacar en campos como la ingeniería, la arquitectura, la mecánica, o labores relacionadas con el medio ambiente y la agricultura.",
+    'I': "Eres una persona curiosa y analítica que tiende a la observación y comprensión del mundo, a menudo desde una perspectiva abstracta. Te gusta investigar, realizar asociaciones y encontrar relaciones lógicas entre los fenómenos. Tienes una fuerte tendencia a la introspección y prefieres el uso de la razón por encima de la emoción. Te desenvuelves de manera excelente en tareas basadas en la investigación teórica o científica, por lo que carreras como la biología, la física, la química o la economía encajan perfectamente contigo.",
+    'A': "Eres una persona creativa, impulsiva, idealista y altamente intuitiva. Para ti, la estética y la posibilidad de proyectar tus emociones al mundo son fundamentales. Disfrutas de tu independencia y tienes una necesidad constante de elaborar, diseñar y crear cosas nuevas, alejándote a menudo de lo meramente intelectual o rutinario. Profesiones vinculadas a la expresión artística, como la pintura, la música, la escultura, el diseño, la actuación, la danza o la literatura son ideales para tu perfil.",
+    'S': "Eres una persona altamente empática, comunicativa e idealista. Tu aspecto más destacable es el deseo genuino de ayudar, enseñar o curar a otros a través del trato directo. Tienes una gran facilidad para las relaciones humanas y la cooperación, prefiriendo el trabajo en equipo sobre las tareas mecánicas o solitarias. Destacarías notablemente en profesiones enfocadas en el apoyo a los demás, como la psicología, la medicina, la enfermería, la docencia o el trabajo social.",
+    'E': "Eres una persona persuasiva, con gran habilidad comunicativa y un elevado nivel de energía. Tienes una clara capacidad de liderazgo, confianza en ti mismo/a y no temes asumir riesgos para alcanzar tus metas. Disfrutas de la interacción social, eres extrovertido/a y te motiva la búsqueda de logros y el desarrollo de proyectos. Tienes un perfil ideal para triunfar en el mundo de los negocios, la gestión empresarial, las ventas, el marketing o la dirección de equipos.",
+    'C': "Eres una persona disciplinada, ordenada y lógica, que valora profundamente la organización y las reglas claras. Prefieres entornos estructurados donde puedas aplicar tu agilidad mental y tu atención al detalle, sin necesidad de estar constantemente en el centro de la atención social. Eres formal y muy responsable con tus tareas. Tu perfil es perfecto para profesiones que requieren precisión y método, como la contabilidad, la administración financiera, la logística, el secretariado o la gestión de datos."
 };
 // INICIO
 formRegister.addEventListener('submit', (e) => {
@@ -103,14 +103,12 @@ function finishTest() {
     for (let key in scores) if (scores[key] > maxScore) maxScore = scores[key];
     
     let dominantProfiles = [];
-    let winningKeys = []; // Guarda las letras para usarlas en el PDF
-    let alertDescriptions = []; // Textos para la alerta web
+    let winningKeys = []; // Guarda las letras para el PDF
     
     for (let key in scores) {
         if (scores[key] === maxScore) {
             dominantProfiles.push(`${fullDimensions[key]} (${key})`);
             winningKeys.push(key);
-            alertDescriptions.push(`--- ${fullDimensions[key]} ---\n${profileDescriptions[key]}`);
         }
     }
     
@@ -124,13 +122,13 @@ function finishTest() {
         scores: { ...scores },
         maxScore: maxScore,
         profile: profileString,
-        winningKeys: winningKeys // Se añade al registro local, no al Excel
+        winningKeys: winningKeys // Se usa exclusivamente para generar el PDF
     };
 
     saveRecord(record);
     
-    // Alerta con los textos incluidos
-    alert(`¡Test finalizado!\n\nVocación Dominante: ${profileString}\nPuntaje: ${maxScore}\n\nDETALLE:\n${alertDescriptions.join('\n\n')}`);
+    // Alerta simplificada: SOLO muestra el nombre del perfil y el puntaje
+    alert(`¡Test finalizado!\n\nVocación Dominante: ${profileString}\nPuntaje: ${maxScore}`);
     
     document.getElementById('form-register').reset();
     switchScreen(screenTest, screenRegister);
