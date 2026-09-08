@@ -51,7 +51,14 @@ const fullDimensions = {
     'R': 'Realista', 'I': 'Investigador', 'A': 'Artístico',
     'S': 'Social', 'E': 'Emprendedor', 'C': 'Convencional'
 };
-
+const profileDescriptions = {
+    'R': "La personalidad realista hace referencia a aquel patrón de conducta y pensamiento que tiende a ver el mundo como un todo objetivo y concreto. Se toman el mundo como les viene. Suelen ser realistas, dinámicos, materiales y aunque no son asociales el contacto con los demás no es para ellos lo más prioritario. También suelen ser pacientes y constantes.\n\nEste tipo de personalidades tienden a sentirse más a gusto desempeñando trabajos directos, con fuertes componentes prácticos y que exijan cierta motricidad y uso sistematizado de elementos. Suelen destacar en el uso de instrumentos mecánicos y con necesidad de precisión manual. Campos como la agricultura y la ganadería, la arquitectura o la ingeniería serían propicios para este tipo de personalidad.",
+    'I': "Este tipo de personalidad tiende más a la observación y al análisis del mundo, a menudo de una manera abstracta e intentando realizar asociaciones y encontrar relaciones entre los fenómenos que en él ocurren. Se trata de personalidades curiosas, analíticas, con tendencia a la introspección y al uso de la razón por encima de la emoción. No son especialmente sociables y suelen tener un enfoque del mundo más bien teórico, no interesándoles tanto la práctica.\n\nEsta personalidad se corresponde con tareas principalmente basadas en la investigación. Física, química, economía o biología son algunos de los ámbitos en que suelen observarse más este tipo de personalidades.",
+    'A': "La creatividad y el uso de materiales en búsqueda de la expresión son algunos de los principales elementos que caracterizan la personalidad artística. No es raro que se trate de personas impulsivas, idealistas y altamente emotivas e intuitivas. La estética y poder proyectar hacia el mundo sus sensaciones es importante para ellos, y suelen ser personas independientes. Si bien también intentan ver el mundo desde la abstracción, suelen focalizarse más en la emoción y tiende a disgustarles lo meramente intelectual, poseyendo la necesidad de elaborar y crear.\n\nPintores, escultores o músicos son algunos de los profesionales que tienden a este tipo de personalidad. También bailarines y actores, escritores y periodistas.",
+    'S': "El aspecto más destacable de las personas con este tipo de personalidad es la necesidad o deseo de ayudar a otros a través del trato con ellos, y su elevada necesidad de interacción humana. Suele tratarse de personas muy empáticas e idealistas, altamente comunicativas y tener cierta facilidad o gusto para las relaciones y la cooperación.\n\nEl tipo de tareas en las que suele encontrarse este tipo de personalidad son todas aquellas que supongan un trato directo con otras personas y en que dicha interacción exista como objetivo la idea de dar apoyo al otro. Psicólogos, médicos, enfermeros, profesores o trabajadores sociales suelen tener características de este tipo de personalidad. Tareas más mecánicas no suelen ser de su agrado.",
+    'E': "La capacidad de persuasión y la habilidad comunicativa son aspectos típicos de la personalidad emprendedora. Cierto nivel de dominancia y búsqueda de logro y poder son usuales en este tipo de personas, así como valor y capacidad de riesgo. Generalmente son personas con habilidades sociales y altamente extravertidos, con capacidad de liderazgo y un elevado nivel de energía.\n\nProfesiones en que prevalecen este tipo de personas son el mundo de la banca y de los negocios. Comerciales y empresarios suelen también tener rasgos de este tipo de personalidad.",
+    'C': "Estamos ante un tipo de personalidad que se caracteriza por el gusto por el orden sin necesidad de introducir grandes cambios en él. Tampoco precisan de un gran contacto social a nivel laboral. Suelen ser personas altamente organizadas, ordenadas, disciplinadas y formales. No es rara cierta tendencia al conformismo, dado que se identifican con la organización ya establecida. Suelen ser ágiles y lógicos.\n\nDentro de este tipo de personalidades encontramos a personas con vocación por aspectos como la contabilidad, el trabajo en oficina, el secretariado, bibliotecarias/os… en general con tendencia a buscar el orden."
+};
 // INICIO
 formRegister.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -96,7 +103,16 @@ function finishTest() {
     for (let key in scores) if (scores[key] > maxScore) maxScore = scores[key];
     
     let dominantProfiles = [];
-    for (let key in scores) if (scores[key] === maxScore) dominantProfiles.push(`${fullDimensions[key]} (${key})`);
+    let winningKeys = []; // Guarda las letras para usarlas en el PDF
+    let alertDescriptions = []; // Textos para la alerta web
+    
+    for (let key in scores) {
+        if (scores[key] === maxScore) {
+            dominantProfiles.push(`${fullDimensions[key]} (${key})`);
+            winningKeys.push(key);
+            alertDescriptions.push(`--- ${fullDimensions[key]} ---\n${profileDescriptions[key]}`);
+        }
+    }
     
     const profileString = dominantProfiles.join(' / ');
 
@@ -107,11 +123,14 @@ function finishTest() {
         age: currentStudent.age,
         scores: { ...scores },
         maxScore: maxScore,
-        profile: profileString
+        profile: profileString,
+        winningKeys: winningKeys // Se añade al registro local, no al Excel
     };
 
     saveRecord(record);
-    alert(`¡Test finalizado!\n\nVocación Dominante: ${profileString}\nPuntaje: ${maxScore}`);
+    
+    // Alerta con los textos incluidos
+    alert(`¡Test finalizado!\n\nVocación Dominante: ${profileString}\nPuntaje: ${maxScore}\n\nDETALLE:\n${alertDescriptions.join('\n\n')}`);
     
     document.getElementById('form-register').reset();
     switchScreen(screenTest, screenRegister);
@@ -277,6 +296,7 @@ function generatePDF(id) {
     doc.text(`Emprendedor (E):`, 120, yStart + 10); doc.text(`${record.scores.E} pts`, 160, yStart + 10);
     doc.text(`Convencional (C):`, 120, yStart + 20); doc.text(`${record.scores.C} pts`, 160, yStart + 20);
 
+    
     // Caja de Perfil Dominante
     doc.setFillColor(245, 247, 250);
     doc.setDrawColor(196, 168, 87);
@@ -290,7 +310,42 @@ function generatePDF(id) {
     doc.setFontSize(14);
     doc.text(`${record.profile} (Puntaje Máx: ${record.maxScore})`, 105, 197, { align: "center" });
 
-    // Pie de página
+    // --- INYECCIÓN DE TEXTOS DESCRIPTIVOS ---
+    let currentY = 215; // Empezar justo debajo de la caja dorada
+
+    if (record.winningKeys) {
+        record.winningKeys.forEach(key => {
+            const title = `Perfil ${fullDimensions[key]}`;
+            const desc = profileDescriptions[key];
+
+            // Salto de página si el título no cabe
+            if (currentY > 260) { doc.addPage(); currentY = 20; }
+            
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(12);
+            doc.setTextColor(34, 44, 87);
+            doc.text(title, 20, currentY);
+            currentY += 7;
+
+            // Procesado del párrafo para respetar los márgenes (170 de ancho)
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.setTextColor(50, 50, 50);
+            
+            const splitDesc = doc.splitTextToSize(desc, 170);
+            
+            // Si el texto es muy largo para la página actual, crea una hoja nueva
+            if (currentY + (splitDesc.length * 5) > 275) {
+                doc.addPage();
+                currentY = 20;
+            }
+            
+            doc.text(splitDesc, 20, currentY);
+            currentY += (splitDesc.length * 5) + 10; // Espaciado final entre perfiles
+        });
+    }
+
+    // Pie de página (siempre en la última hoja activa)
     doc.setTextColor(150, 150, 150);
     doc.setFontSize(9);
     doc.setFont("helvetica", "italic");
