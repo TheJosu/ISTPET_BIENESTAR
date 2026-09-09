@@ -36,7 +36,7 @@
                 </div>
                 <div class="input-group">
                     <label for="student-phone">Teléfono</label>
-                    <input type="tel" id="student-phone" autocomplete="off">
+                    <input type="tel" id="student-phone" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" autocomplete="off" placeholder="Ej: 0991234567">
                 </div>
                 <button type="submit" class="btn btn-primary">Comenzar Test</button>
             </form>

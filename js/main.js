@@ -121,6 +121,7 @@ function finishTest() {
         date: new Date().toLocaleDateString('es-ES'),
         name: currentStudent.name,
         age: currentStudent.age,
+        phone: currentStudent.phone,
         scores: { ...scores },
         maxScore: maxScore,
         profile: profileString,
@@ -318,59 +319,44 @@ function generatePDF(id) {
     const splitProfile = doc.splitTextToSize(profileText, 160);
     doc.text(splitProfile, 105, 192, { align: "center" });
 
-    // CARGA DE IMAGEN DECORATIVA DESDE INTERNET
-    const decorImg = new Image();
-    decorImg.crossOrigin = "Anonymous"; 
-    // Link de la imagen decorativa (Icono de vocación/logro)
-    decorImg.src = "https://cdn-icons-png.flaticon.com/512/3135/3135810.png"; 
+    // --- INYECCIÓN DE TEXTOS DESCRIPTIVOS ---
+    let currentY = 215;
 
-    // Función interna para terminar y descargar el PDF
-    const finalizarPDF = () => {
-        let currentY = 215;
+    if (record.winningKeys) {
+        record.winningKeys.forEach(key => {
+            const title = `Perfil ${fullDimensions[key]}`;
+            const desc = profileDescriptions[key];
 
-        if (record.winningKeys) {
-            record.winningKeys.forEach(key => {
-                const title = `Perfil ${fullDimensions[key]}`;
-                const desc = profileDescriptions[key];
+            if (currentY > 260) { doc.addPage(); currentY = 20; }
+            
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(12);
+            doc.setTextColor(34, 44, 87);
+            doc.text(title, 20, currentY);
+            currentY += 7;
 
-                if (currentY > 260) { doc.addPage(); currentY = 20; }
-                
-                doc.setFont("helvetica", "bold");
-                doc.setFontSize(12);
-                doc.setTextColor(34, 44, 87);
-                doc.text(title, 20, currentY);
-                currentY += 7;
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.setTextColor(50, 50, 50);
+            
+            const splitDesc = doc.splitTextToSize(desc, 170);
+            
+            if (currentY + (splitDesc.length * 5) > 275) {
+                doc.addPage();
+                currentY = 20;
+            }
+            
+            doc.text(splitDesc, 20, currentY);
+            currentY += (splitDesc.length * 5) + 10; 
+        });
+    }
 
-                doc.setFont("helvetica", "normal");
-                doc.setFontSize(10);
-                doc.setTextColor(50, 50, 50);
-                
-                const splitDesc = doc.splitTextToSize(desc, 170);
-                
-                if (currentY + (splitDesc.length * 5) > 275) {
-                    doc.addPage();
-                    currentY = 20;
-                }
-                
-                doc.text(splitDesc, 20, currentY);
-                currentY += (splitDesc.length * 5) + 10; 
-            });
-        }
+    doc.setTextColor(150, 150, 150);
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "italic");
+    doc.text("Documento generado automáticamente por el sistema. Válido para registros internos del ISTPET.", 105, 280, { align: "center" });
 
-        doc.setTextColor(150, 150, 150);
-        doc.setFontSize(9);
-        doc.setFont("helvetica", "italic");
-        doc.text("Documento generado automáticamente por el sistema. Válido para registros internos del ISTPET.", 105, 280, { align: "center" });
-
-        doc.save(`Resultados_Vocacionales_${record.name.replace(/\s+/g, '_')}.pdf`);
-    };
-
-    /**Intenta agregar la imagen. Si el navegador la bloquea, guarda el PDF sin ella.
-    decorImg.onload = () => {
-        doc.addImage(decorImg, 'PNG', 172, 177, 14, 14); // Esquina derecha de la caja
-        finalizarPDF();
-    };
-    decorImg.onerror = () => { finalizarPDF(); };**/
+    doc.save(`Resultados_Vocacionales_${record.name.replace(/\s+/g, '_')}.pdf`);
 }
 
 // --- SEGURIDAD DE 5 CLICS ---
