@@ -362,13 +362,13 @@ function generatePDF(id) {
         doc.save(`Resultados_Vocacionales_${record.name.replace(/\s+/g, '_')}.pdf`);
     };
 
-    // Intenta agregar la imagen. Si el navegador la bloquea, guarda el PDF sin ella.
+    /**  Intenta agregar la imagen. Si el navegador la bloquea, guarda el PDF sin ella.
     decorImg.onload = () => {
         doc.addImage(decorImg, 'PNG', 172, 177, 14, 14); // Esquina derecha de la caja
         finalizarPDF();
     };
     decorImg.onerror = () => { finalizarPDF(); };
-}
+}**/
 
 // --- SEGURIDAD DE 5 CLICS ---
 let adminClickCount = 0;
