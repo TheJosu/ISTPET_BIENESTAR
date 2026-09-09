@@ -392,3 +392,4 @@ btnViewAdmin.addEventListener('click', (e) => {
         adminClickCount = 0; // Reinicia para la próxima vez
     }
 });
+}
