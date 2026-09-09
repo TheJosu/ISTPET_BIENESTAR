@@ -52,12 +52,12 @@ const fullDimensions = {
     'S': 'Social', 'E': 'Emprendedor', 'C': 'Convencional'
 };
 const profileDescriptions = {
-    'R': "Eres una persona práctica que tiende a ver el mundo de forma objetiva y concreta. Te caracterizas por ser realista, dinámico/a, paciente y constante, prefiriendo tomar las situaciones tal como vienen. Te sientes mucho más a gusto desempeñando trabajos directos, con fuertes componentes prácticos y que exijan destreza manual o el uso sistematizado de elementos y herramientas. Tienes un gran potencial para destacar en campos como la ingeniería, la arquitectura, la mecánica, o labores relacionadas con el medio ambiente y la agricultura.",
-    'I': "Eres una persona curiosa y analítica que tiende a la observación y comprensión del mundo, a menudo desde una perspectiva abstracta. Te gusta investigar, realizar asociaciones y encontrar relaciones lógicas entre los fenómenos. Tienes una fuerte tendencia a la introspección y prefieres el uso de la razón por encima de la emoción. Te desenvuelves de manera excelente en tareas basadas en la investigación teórica o científica, por lo que carreras como la biología, la física, la química o la economía encajan perfectamente contigo.",
-    'A': "Eres una persona creativa, impulsiva, idealista y altamente intuitiva. Para ti, la estética y la posibilidad de proyectar tus emociones al mundo son fundamentales. Disfrutas de tu independencia y tienes una necesidad constante de elaborar, diseñar y crear cosas nuevas, alejándote a menudo de lo meramente intelectual o rutinario. Profesiones vinculadas a la expresión artística, como la pintura, la música, la escultura, el diseño, la actuación, la danza o la literatura son ideales para tu perfil.",
-    'S': "Eres una persona altamente empática, comunicativa e idealista. Tu aspecto más destacable es el deseo genuino de ayudar, enseñar o curar a otros a través del trato directo. Tienes una gran facilidad para las relaciones humanas y la cooperación, prefiriendo el trabajo en equipo sobre las tareas mecánicas o solitarias. Destacarías notablemente en profesiones enfocadas en el apoyo a los demás, como la psicología, la medicina, la enfermería, la docencia o el trabajo social.",
-    'E': "Eres una persona persuasiva, con gran habilidad comunicativa y un elevado nivel de energía. Tienes una clara capacidad de liderazgo, confianza en ti mismo/a y no temes asumir riesgos para alcanzar tus metas. Disfrutas de la interacción social, eres extrovertido/a y te motiva la búsqueda de logros y el desarrollo de proyectos. Tienes un perfil ideal para triunfar en el mundo de los negocios, la gestión empresarial, las ventas, el marketing o la dirección de equipos.",
-    'C': "Eres una persona disciplinada, ordenada y lógica, que valora profundamente la organización y las reglas claras. Prefieres entornos estructurados donde puedas aplicar tu agilidad mental y tu atención al detalle, sin necesidad de estar constantemente en el centro de la atención social. Eres formal y muy responsable con tus tareas. Tu perfil es perfecto para profesiones que requieren precisión y método, como la contabilidad, la administración financiera, la logística, el secretariado o la gestión de datos."
+    'R': "Eres una persona práctica, inclinada a la mecánica y la física, que prefiere trabajar con las manos, herramientas, máquinas y cosas. Destacas en campos como la ingeniería, la industria, la arquitectura, la agricultura, los servicios de transporte y de seguridad.",
+    'I': "Eres una persona analítica, intelectual y científica, que disfruta trabajar con la teoría y la información. Tus campos de educación ideales incluyen las ciencias de la vida, ciencias físicas, matemáticas, estadística, informática y medicina.",
+    'A': "Eres una persona original e independiente que prefiere las soluciones creativas. Tus áreas afines abarcan las bellas artes, artes del espectáculo, artes gráficas y audiovisuales, diseño, y periodismo e información.",
+    'S': "Eres una persona que se enfoca en apoyar, cuidar, y está encargada de la comunicación, educación y cooperación. Podrías desarrollarte excelentemente en medicina, servicios médicos, enfermería, asistencia social, formación docente o servicios personales.",
+    'E': "Eres una persona orientada a trabajar en entornos competitivos, lo que te lleva a persuadir, vender, gestionar y promocionar. Destacarás en la educación comercial y administración (como gestión financiera y ventas) o el derecho.",
+    'C': "Eres una persona metódica, ordenada, precisa y que cuida con atención los detalles, enfocándote en el ámbito de la organización. Tus campos ideales también incluyen la educación comercial, administración pública o institucional, contabilidad y derecho."
 };
 // INICIO
 formRegister.addEventListener('submit', (e) => {
@@ -295,61 +295,79 @@ function generatePDF(id) {
     doc.text(`Convencional (C):`, 120, yStart + 20); doc.text(`${record.scores.C} pts`, 160, yStart + 20);
 
     
-    // Caja de Perfil Dominante
+   // Caja de Perfil Dominante
     doc.setFillColor(245, 247, 250);
     doc.setDrawColor(196, 168, 87);
     doc.rect(20, 175, 170, 30, 'FD');
     
     doc.setTextColor(34, 44, 87);
     doc.setFont("helvetica", "bold");
-    doc.text("PERFIL VOCACIONAL DOMINANTE", 105, 187, { align: "center" });
+    doc.text("PERFIL VOCACIONAL DOMINANTE", 105, 184, { align: "center" });
     
+    // SOLUCIÓN AL DESBORDAMIENTO DE EMPATES
     doc.setTextColor(196, 168, 87);
-    doc.setFontSize(14);
-    doc.text(`${record.profile} (Puntaje Máx: ${record.maxScore})`, 105, 197, { align: "center" });
+    const profileText = `${record.profile} (Puntaje Máx: ${record.maxScore})`;
+    
+    // Si el texto es muy largo, reduce la fuente; si sigue siendo largo, lo divide en dos líneas
+    if (profileText.length > 60) doc.setFontSize(10);
+    else doc.setFontSize(14);
+    
+    const splitProfile = doc.splitTextToSize(profileText, 160);
+    doc.text(splitProfile, 105, 192, { align: "center" });
 
-    // --- INYECCIÓN DE TEXTOS DESCRIPTIVOS ---
-    let currentY = 215; // Empezar justo debajo de la caja dorada
+    // CARGA DE IMAGEN DECORATIVA DESDE INTERNET
+    const decorImg = new Image();
+    decorImg.crossOrigin = "Anonymous"; 
+    // Link de la imagen decorativa (Icono de vocación/logro)
+    decorImg.src = "https://cdn-icons-png.flaticon.com/512/3135/3135810.png"; 
 
-    if (record.winningKeys) {
-        record.winningKeys.forEach(key => {
-            const title = `Perfil ${fullDimensions[key]}`;
-            const desc = profileDescriptions[key];
+    // Función interna para terminar y descargar el PDF
+    const finalizarPDF = () => {
+        let currentY = 215;
 
-            // Salto de página si el título no cabe
-            if (currentY > 260) { doc.addPage(); currentY = 20; }
-            
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(12);
-            doc.setTextColor(34, 44, 87);
-            doc.text(title, 20, currentY);
-            currentY += 7;
+        if (record.winningKeys) {
+            record.winningKeys.forEach(key => {
+                const title = `Perfil ${fullDimensions[key]}`;
+                const desc = profileDescriptions[key];
 
-            // Procesado del párrafo para respetar los márgenes (170 de ancho)
-            doc.setFont("helvetica", "normal");
-            doc.setFontSize(10);
-            doc.setTextColor(50, 50, 50);
-            
-            const splitDesc = doc.splitTextToSize(desc, 170);
-            
-            // Si el texto es muy largo para la página actual, crea una hoja nueva
-            if (currentY + (splitDesc.length * 5) > 275) {
-                doc.addPage();
-                currentY = 20;
-            }
-            
-            doc.text(splitDesc, 20, currentY);
-            currentY += (splitDesc.length * 5) + 10; // Espaciado final entre perfiles
-        });
-    }
+                if (currentY > 260) { doc.addPage(); currentY = 20; }
+                
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(12);
+                doc.setTextColor(34, 44, 87);
+                doc.text(title, 20, currentY);
+                currentY += 7;
 
-    // Pie de página (siempre en la última hoja activa)
-    doc.setTextColor(150, 150, 150);
-    doc.setFontSize(9);
-    doc.setFont("helvetica", "italic");
-    doc.text("Documento generado automáticamente por el sistema. Válido para registros internos del ISTPET.", 105, 280, { align: "center" });
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(10);
+                doc.setTextColor(50, 50, 50);
+                
+                const splitDesc = doc.splitTextToSize(desc, 170);
+                
+                if (currentY + (splitDesc.length * 5) > 275) {
+                    doc.addPage();
+                    currentY = 20;
+                }
+                
+                doc.text(splitDesc, 20, currentY);
+                currentY += (splitDesc.length * 5) + 10; 
+            });
+        }
 
-    doc.save(`Resultados_Vocacionales_${record.name.replace(/\s+/g, '_')}.pdf`);
+        doc.setTextColor(150, 150, 150);
+        doc.setFontSize(9);
+        doc.setFont("helvetica", "italic");
+        doc.text("Documento generado automáticamente por el sistema. Válido para registros internos del ISTPET.", 105, 280, { align: "center" });
+
+        doc.save(`Resultados_Vocacionales_${record.name.replace(/\s+/g, '_')}.pdf`);
+    };
+
+    // Intenta agregar la imagen. Si el navegador la bloquea, guarda el PDF sin ella.
+    decorImg.onload = () => {
+        doc.addImage(decorImg, 'PNG', 172, 177, 14, 14); // Esquina derecha de la caja
+        finalizarPDF();
+    };
+    decorImg.onerror = () => { finalizarPDF(); };
 }
 
 // --- SEGURIDAD DE 5 CLICS ---
