@@ -34,7 +34,7 @@ const questions = [
 
 let currentQuestionIndex = 0;
 let scores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
-let currentStudent = { name: '', age: '' };
+let currentStudent = { name: '', age: '', phone: '' };
 
 const screenRegister = document.getElementById('screen-register');
 const screenTest = document.getElementById('screen-test');
@@ -64,6 +64,8 @@ formRegister.addEventListener('submit', (e) => {
     e.preventDefault();
     currentStudent.name = document.getElementById('student-name').value.trim();
     currentStudent.age = document.getElementById('student-age').value.trim();
+    currentStudent.phone = document.getElementById('student-phone').value.trim() || "N/A";
+
     if (currentStudent.name && currentStudent.age) startTest();
 });
 
@@ -150,6 +152,7 @@ function saveRecord(record) {
             date: record.date,
             name: record.name,
             age: record.age.toString(),
+            phone: record.phone,
             R: record.scores.R,
             I: record.scores.I,
             A: record.scores.A,
