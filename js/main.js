@@ -51,14 +51,65 @@ const fullDimensions = {
     'R': 'Realista', 'I': 'Investigador', 'A': 'Artístico',
     'S': 'Social', 'E': 'Emprendedor', 'C': 'Convencional'
 };
-const profileDescriptions = {
-    'R': "Eres una persona práctica, inclinada a la mecánica y la física, que prefiere trabajar con las manos, herramientas, máquinas y cosas. Destacas en campos como la ingeniería, la industria, la arquitectura, la agricultura, los servicios de transporte y de seguridad.",
-    'I': "Eres una persona analítica, intelectual y científica, que disfruta trabajar con la teoría y la información. Tus campos de educación ideales incluyen las ciencias de la vida, ciencias físicas, matemáticas, estadística, informática y medicina.",
-    'A': "Eres una persona original e independiente que prefiere las soluciones creativas. Tus áreas afines abarcan las bellas artes, artes del espectáculo, artes gráficas y audiovisuales, diseño, y periodismo e información.",
-    'S': "Eres una persona que se enfoca en apoyar, cuidar, y está encargada de la comunicación, educación y cooperación. Podrías desarrollarte excelentemente en medicina, servicios médicos, enfermería, asistencia social, formación docente o servicios personales.",
-    'E': "Eres una persona orientada a trabajar en entornos competitivos, lo que te lleva a persuadir, vender, gestionar y promocionar. Destacarás en la educación comercial y administración (como gestión financiera y ventas) o el derecho.",
-    'C': "Eres una persona metódica, ordenada, precisa y que cuida con atención los detalles, enfocándote en el ámbito de la organización. Tus campos ideales también incluyen la educación comercial, administración pública o institucional, contabilidad y derecho."
+const profileData = {
+    'R': {
+        definicion: "Persona que trabaja con las manos, con herramientas, máquinas y cosas; persona práctica, inclinada a la mecánica y la física.",
+        campos: [
+            "Ingeniería y profesiones afines: dibujo técnico, mecánica, metalistería, electricidad, electrónica, telecomunicaciones, ingeniería energética y química, mantenimiento de vehículos, topografía.",
+            "Industria y producción: alimentación y bebidas, textiles, confección, calzado, cuero, materiales (madera, papel, plástico, vidrio, entre otros), minería e industrias extractivas.",
+            "Arquitectura y construcción: arquitectura estructural, arquitectura paisajística, planificación comunitaria, cartografía, edificación, construcción, ingeniería civil.",
+            "Agricultura: silvicultura y pesca, producción agropecuaria, agronomía, ganadería, horticultura y jardinería, silvicultura y técnicas forestales, parques naturales, flora y fauna, ciencia y tecnología pesqueras. Veterinaria.",
+            "Servicios de transporte: formación de marinos, oficiales de marina, náutica, tripulación de aviones, control del tráfico aéreo, transporte ferroviario, transporte por carretera, servicios postales.",
+            "Servicios de seguridad: protección de personas y bienes, servicios de policía y orden público, criminología, prevención y extinción de incendios, seguridad civil, educación militar."
+        ]
+    },
+    'I': {
+        definicion: "Persona que trabaja con la teoría y la información; analítica, intelectual y científica.",
+        campos: [
+            "Ciencias de la vida: biología, botánica, bacteriología, toxicología, microbiología, zoología, entomología, ornitología, genética, bioquímica, biofísica y otras ciencias afines.",
+            "Ciencias físicas: astronomía y ciencias espaciales, física y asignaturas afines, química, geología, geofísica, mineralogía, antropología física, geografía física, meteorología, vulcanología.",
+            "Matemáticas y estadística: matemáticas, investigación de operaciones, análisis numérico, ciencias actuariales, estadística y otros sectores afines.",
+            "Informática: concepción de sistemas, programación informática, procesamiento de datos, redes, sistemas operativos. Elaboración de programas informáticos.",
+            "Medicina: anatomía, epidemiología, citología, fisiología, inmunología, patología, anestesiología, pediatría, obstetricia y ginecología, medicina interna, cirugía, neurología, psiquiatría."
+        ]
+    },
+    'A': {
+        definicion: "Persona que prefiere las soluciones creativas; es original e independiente.",
+        campos: [
+            "Bellas artes: dibujo, pintura y escultura.",
+            "Artes del espectáculo: música, arte dramático, danza, circo.",
+            "Artes gráficas y audiovisuales: fotografía, cinematografía, producción musical, producción de radio y televisión, impresión y publicación.",
+            "Diseño: artesanía.",
+            "Periodismo e información: periodismo, bibliotecología y personal técnico de bibliotecas, museos y establecimientos similares; técnicas de documentación; archivología."
+        ]
+    },
+    'S': {
+        definicion: "Persona que apoya, cuida, encargada de la comunicación, educación y cooperación.",
+        campos: [
+            "Formación de personal docente y ciencias de la educación: todos los campos.",
+            "Educación comercial y administración: comercio al por menor, comercialización, ventas, relaciones públicas, gestión financiera, recursos humanos, administración institucional, secretariado.",
+            "Servicios médicos y Enfermería: salud pública, higiene, farmacia, farmacología, terapéutica, rehabilitación, nutrición, enfermería básica, partería.",
+            "Servicios dentales: auxiliar de odontología, higienista dental, técnico de laboratorio dental, odontología.",
+            "Asistencia social: asistencia a minusválidos, a la infancia, servicios para jóvenes, gerontología, trabajo social de orientación.",
+            "Servicios personales: hotelería y restaurantes, viajes y turismo, deportes y recreación, peluquería, tratamientos de belleza."
+        ]
+    },
+    'E': {
+        definicion: "Persona que trabaja en entornos competitivos, lo que le lleva a: persuadir, vender, gestionar, promocionar.",
+        campos: [
+            "Educación comercial y administración: comercio al por menor, comercialización, ventas, relaciones públicas, asuntos inmobiliarios; gestión financiera, administración bancaria, seguros, análisis de inversiones; contabilidad, auditoría, gestión y administración pública.",
+            "Derecho: magistrados locales, notarios, derecho (general, internacional, laboral, marítimo, etcétera), jurisprudencia, historia del derecho."
+        ]
+    },
+    'C': {
+        definicion: "Persona metódica, ordenada, precisa, que cuida con atención a los detalles. Se enfoca al ámbito de la organización.",
+        campos: [
+            "Educación comercial y administración: comercio al por menor, comercialización, ventas, relaciones públicas, asuntos inmobiliarios; gestión financiera, administración bancaria, seguros, análisis de inversiones; contabilidad, auditoría, secretariado y trabajo de oficina.",
+            "Derecho: magistrados locales, notarios, derecho (general, internacional, laboral, marítimo, etcétera), jurisprudencia, historia del derecho."
+        ]
+    }
 };
+
 // INICIO
 formRegister.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -299,7 +350,7 @@ function generatePDF(id) {
     doc.text(`Convencional (C):`, 120, yStart + 20); doc.text(`${record.scores.C} pts`, 160, yStart + 20);
 
     
-   // Caja de Perfil Dominante
+  // Caja de Perfil Dominante
     doc.setFillColor(245, 247, 250);
     doc.setDrawColor(196, 168, 87);
     doc.rect(20, 175, 170, 30, 'FD');
@@ -308,46 +359,79 @@ function generatePDF(id) {
     doc.setFont("helvetica", "bold");
     doc.text("PERFIL VOCACIONAL DOMINANTE", 105, 184, { align: "center" });
     
-    // SOLUCIÓN AL DESBORDAMIENTO DE EMPATES
     doc.setTextColor(196, 168, 87);
     const profileText = `${record.profile} (Puntaje Máx: ${record.maxScore})`;
     
-    // Si el texto es muy largo, reduce la fuente; si sigue siendo largo, lo divide en dos líneas
     if (profileText.length > 60) doc.setFontSize(10);
     else doc.setFontSize(14);
     
     const splitProfile = doc.splitTextToSize(profileText, 160);
     doc.text(splitProfile, 105, 192, { align: "center" });
 
-    // --- INYECCIÓN DE TEXTOS DESCRIPTIVOS ---
+    // --- INYECCIÓN DE TEXTOS DESCRIPTIVOS (ESTILO CINE) ---
     let currentY = 215;
 
     if (record.winningKeys) {
         record.winningKeys.forEach(key => {
-            const title = `Perfil ${fullDimensions[key]}`;
-            const desc = profileDescriptions[key];
+            const title = `Perfil ${fullDimensions[key]} (${key})`;
+            const data = profileData[key]; 
 
             if (currentY > 260) { doc.addPage(); currentY = 20; }
             
+            // TÍTULO DEL PERFIL
             doc.setFont("helvetica", "bold");
-            doc.setFontSize(12);
+            doc.setFontSize(13);
             doc.setTextColor(34, 44, 87);
             doc.text(title, 20, currentY);
             currentY += 7;
 
-            doc.setFont("helvetica", "normal");
+            // DEFINICIÓN
+            doc.setFont("helvetica", "bold");
             doc.setFontSize(10);
             doc.setTextColor(50, 50, 50);
+            doc.text("Definición:", 20, currentY);
             
-            const splitDesc = doc.splitTextToSize(desc, 170);
+            doc.setFont("helvetica", "normal");
+            const splitDef = doc.splitTextToSize(data.definicion, 145);
+            doc.text(splitDef, 43, currentY); 
+            currentY += (splitDef.length * 5) + 4;
+
+            // TÍTULO DE CAMPOS DE EDUCACIÓN
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(196, 168, 87); 
+            doc.text("Campos de Educación sugeridos (CINE):", 20, currentY);
+            currentY += 7;
             
-            if (currentY + (splitDesc.length * 5) > 275) {
-                doc.addPage();
-                currentY = 20;
-            }
-            
-            doc.text(splitDesc, 20, currentY);
-            currentY += (splitDesc.length * 5) + 10; 
+            doc.setTextColor(50, 50, 50); 
+
+            // RECORRER CAMPOS Y PONER VIÑETAS / NEGRITAS
+            data.campos.forEach(campo => {
+                if (currentY > 275) { doc.addPage(); currentY = 20; }
+                
+                let colonIndex = campo.indexOf(':');
+                
+                if (colonIndex !== -1) {
+                    // Si tiene dos puntos, poner el título en negrita y la descripción abajo indentada
+                    let campoTitulo = campo.substring(0, colonIndex + 1);
+                    let campoDesc = campo.substring(colonIndex + 1).trim();
+
+                    doc.setFont("helvetica", "bold");
+                    doc.text("• " + campoTitulo, 25, currentY);
+                    currentY += 5;
+
+                    doc.setFont("helvetica", "normal");
+                    const splitDesc = doc.splitTextToSize(campoDesc, 150);
+                    doc.text(splitDesc, 30, currentY); // Indentado a la derecha
+                    currentY += (splitDesc.length * 5) + 2;
+                } else {
+                    // Si es una línea simple, va toda con viñeta
+                    doc.setFont("helvetica", "bold");
+                    const splitDesc = doc.splitTextToSize("• " + campo, 160);
+                    doc.text(splitDesc, 25, currentY);
+                    currentY += (splitDesc.length * 5) + 2;
+                }
+            });
+            currentY += 6; // Espacio extra antes del siguiente perfil en caso de empate
         });
     }
 
