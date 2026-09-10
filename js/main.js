@@ -115,7 +115,21 @@ formRegister.addEventListener('submit', (e) => {
     e.preventDefault();
     currentStudent.name = document.getElementById('student-name').value.trim();
     currentStudent.age = document.getElementById('student-age').value.trim();
-    currentStudent.phone = document.getElementById('student-phone').value.trim() || "N/A";
+    
+    const phoneInput = document.getElementById('student-phone').value.trim();
+
+    // ALGORITMO DE VALIDACIÓN ESTRUCTURAL DEL Ecuador
+    if (phoneInput.length > 0) {
+        // La expresión regular exige: Inicio con "09" seguido de exactamente 8 números.
+        const ecPhoneRegex = /^09\d{8}$/;
+        if (!ecPhoneRegex.test(phoneInput)) {
+            alert(" Número inválido. Si deseas dejar tu teléfono, debe tener 10 dígitos y empezar con '09' (Ej: 0991234567).");
+            return; // Detiene el inicio del test hasta que el usuario corrija el dato
+        }
+    }
+    
+    // Si pasa la validación o está vacío, se guarda o se asigna "N/A"
+    currentStudent.phone = phoneInput || "N/A";
 
     if (currentStudent.name && currentStudent.age) startTest();
 });
